@@ -16,6 +16,7 @@ std::ostream &operator<<(std::ostream &o, Paddle b)
     return o;
 }
 
+/*
 int main()
 {
     Paddle p1(0, 0);
@@ -27,3 +28,4 @@ int main()
     std::cout << p1 << std::endl;
     std::cout << p2 << std::endl;
 }
+*/

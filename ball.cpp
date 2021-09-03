@@ -60,6 +60,7 @@ std::ostream &operator<<(std::ostream &o, Ball b)
     return o;
 }
 
+/*
 int main()
 {
     Ball b(0, 0);
@@ -76,3 +77,4 @@ int main()
     b.Move();
     std::cout << b << std::endl;
 }
+*/
