@@ -1,27 +1,20 @@
 #include <iostream>
+#include "paddle.h"
 
-class Paddle
+Paddle::Paddle(int posX, int posY)
+    : x(posX), y(posY), originalX(posX), originalY(posY) {}
+void Paddle::Reset()
 {
-private:
-    int x, y;
-    int originalX, originalY;
-public:
-    Paddle(int posX, int posY)
-        : x(posX), y(posY), originalX(posX), originalY(posY) {}
-    void Reset()
-    {
-        x = originalX;
-        y = originalY;
-    }
-    void MoveUp() { y--; }
-    void MoveDown() { y++; }
-    friend std::ostream& operator<<(std::ostream &o, Paddle b)
-    {
-        o << "Paddle [" << b.x << "," << b.y << "]";
-        return o;
-    }
-};
-
+    x = originalX;
+    y = originalY;
+}
+void Paddle::MoveUp() { y--; }
+void Paddle::MoveDown() { y++; }
+std::ostream &operator<<(std::ostream &o, Paddle b)
+{
+    o << "Paddle [" << b.x << "," << b.y << "]";
+    return o;
+}
 
 int main()
 {

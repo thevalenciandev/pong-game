@@ -1,83 +1,64 @@
 #include "stdlib.h"
 #include <iostream>
+#include "ball.h"
 
-enum Direction
+Ball::Ball(int posX, int posY)
+    : x(posX), y(posY), originalX(posX), originalY(posY), dir(STOP) {}
+
+void Ball::Reset()
 {
-    STOP = 0,
-    LEFT = 1,
-    UPLEFT = 2,
-    DOWNLEFT = 3,
-    RIGHT = 4,
-    UPRIGHT = 5,
-    DOWNRIGHT = 6
-};
+    x = originalX;
+    y = originalY;
+    dir = STOP;
+}
 
-class Ball
+void Ball::ChangeDirRand()
 {
-private:
-    int x, y;
-    int originalX, originalY;
-    Direction dir;
+    dir = (Direction)(rand() % 6 + 1);
+}
 
-public:
-    Ball(int posX, int posY)
-        : x(posX), y(posY), originalX(posX), originalY(posY), dir(STOP) {}
+void Ball::ChangeDir(Direction newDir)
+{
+    dir = newDir;
+}
 
-    void Reset()
+void Ball::Move()
+{
+    switch (dir)
     {
-        x = originalX;
-        y = originalY;
-        dir = STOP;
+    case STOP:
+        break;
+    case LEFT:
+        x--;
+        break;
+    case RIGHT:
+        x++;
+        break;
+    case UPLEFT:
+        x--;
+        y--;
+        break;
+    case DOWNLEFT:
+        x--;
+        y++;
+        break;
+    case UPRIGHT:
+        x++;
+        y--;
+        break;
+    case DOWNRIGHT:
+        x++;
+        y++;
+        break;
+    default:
+        break;
     }
-
-    void ChangeDirRand()
-    {
-        dir = (Direction)(rand() % 6 + 1);
-    }
-
-    void ChangeDir(Direction newDir)
-    {
-        dir = newDir;
-    }
-
-    void Move()
-    {
-        switch (dir)
-        {
-        case STOP:
-            break;
-        case LEFT:
-            x--;
-            break;
-        case RIGHT:
-            x++;
-            break;
-        case UPLEFT:
-            x--;
-            y--;
-            break;
-        case DOWNLEFT:
-            x--;
-            y++;
-            break;
-        case UPRIGHT:
-            x++;
-            y--;
-            break;
-        case DOWNRIGHT:
-            x++;
-            y++;
-            break;
-        default:
-            break;
-        }
-    }
-    friend std::ostream& operator<<(std::ostream &o, Ball b)
-    {
-        o << "Ball [" << b.x << "," << b.y << "][" << b.dir << "]";
-        return o;
-    }
-};
+}
+std::ostream &operator<<(std::ostream &o, Ball b)
+{
+    o << "Ball [" << b.x << "," << b.y << "][" << b.dir << "]";
+    return o;
+}
 
 int main()
 {
