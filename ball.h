@@ -16,6 +16,8 @@ class Ball
 {
 public:
     Ball(int posX, int posY);
+    int GetX();
+    int GetY();
     void Reset();
     void ChangeDirRand();
     void ChangeDir(Direction newDir);

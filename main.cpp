@@ -18,23 +18,66 @@ private:
     }
     void Draw()
     {
-        clear();
-        // Draw walls
-        for (int i = 0; i < width + 2; i++)
-            addch('#');
+        clear(); // Clear screen.
+
+        // Draw top wall
+        for (int i = 0; i < width; i++)
+            addch('\xB2');
         addch('\n');
-        refresh();
+
+        for (int i = 0; i < height; i++) // y
+        {
+            for (int j = 0; j < width; j++) // x
+            {
+                if (j == 0 || j == width - 1)
+                {
+                    addch('\xB2'); // Draw lateral walls
+                    continue;
+                }
+                int ballx = ball->GetX();
+                int bally = ball->GetY();
+                if (j == ballx && i == bally)
+                {
+                    addch('O');
+                    continue;
+                }
+                int player1x = player1->GetX();
+                int player1y = player1->GetY();
+                if (j == player1x && i == player1y)
+                {
+                    addch('\xDB');
+                    continue;
+                }
+                int player2x = player2->GetX();
+                int player2y = player2->GetY();
+                if (j == player2x && i == player2y)
+                {
+                    addch('\xDB');
+                    continue;
+                }
+                addch(' ');
+            }
+            addch('\n'); // finish that row
+        }
+
+        // Draw bottom wall
+        for (int i = 0; i < width; i++)
+            addch('\xB2');
+        addch('\n');
+
+        refresh(); // Draw.
+        napms(100);
     }
     void Logic()
     {
     }
 
 public:
-    Game(int width, int heigth)
+    Game(int width, int height)
         : width(width), height(height), score1(0), score2(0), up1('w'), down1('s'), up2('i'), down2('k'), quit(false),
           ball(new Ball(width / 2, height / 2)),
-          player1(new Paddle(1, height / 2 - 3)),
-          player2(new Paddle(width - 2, height / 2 - 3))
+          player1(new Paddle(2, height / 2 - 3)),
+          player2(new Paddle(width - 3, height / 2 - 3))
     {
         srand(time(NULL)); // seed our random numbers
         InitGraphics();
@@ -54,6 +97,7 @@ public:
     ~Game()
     {
         delete ball, player1, player2;
+        endwin(); // Stop ncurses.
     }
     void ScoreUp(Paddle *player)
     {

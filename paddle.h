@@ -5,6 +5,8 @@ class Paddle
 {
 public:
     Paddle(int posX, int posY);
+    int GetX();
+    int GetY();
     void Reset();
     void MoveUp();
     void MoveDown();

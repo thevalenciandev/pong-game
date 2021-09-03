@@ -1,9 +1,13 @@
 #include "stdlib.h"
 #include <iostream>
 #include "ball.h"
+#include "coordinate.h"
 
 Ball::Ball(int posX, int posY)
     : x(posX), y(posY), originalX(posX), originalY(posY), dir(STOP) {}
+
+int Ball::GetX() { return x; }
+int Ball::GetY() { return y; }
 
 void Ball::Reset()
 {

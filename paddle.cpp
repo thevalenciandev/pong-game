@@ -3,6 +3,8 @@
 
 Paddle::Paddle(int posX, int posY)
     : x(posX), y(posY), originalX(posX), originalY(posY) {}
+int Paddle::GetX() { return x; }
+int Paddle::GetY() { return y; }
 void Paddle::Reset()
 {
     x = originalX;

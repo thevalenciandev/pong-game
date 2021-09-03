@@ -12,7 +12,7 @@
 				"${fileDirname}/paddle.cpp" ,
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}",
-				"-lncurses"
+				"-lncursesw"
 			],
 			"options": {
 				"cwd": "${fileDirname}"
