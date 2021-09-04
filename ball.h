@@ -18,6 +18,7 @@ public:
     Ball(int posX, int posY);
     int GetX();
     int GetY();
+    Direction GetDirection();
     void Reset();
     void ChangeDirRand();
     void ChangeDir(Direction newDir);
