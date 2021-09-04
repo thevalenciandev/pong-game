@@ -15,10 +15,19 @@ private:
     Paddle *player2;
     void Input()
     {
+        int current = getch();
+        if (current == up1 && player1->GetY() > 0)
+            player1->MoveUp();
+        else if (current == up2 && player2->GetY() > 0)
+            player2->MoveUp();
+        else if (current == down1 && player1->GetY() + 4 < height)
+            player1->MoveDown();
+        else if (current == down2 && player2->GetY() + 4 < height)
+            player2->MoveDown();
     }
     void Draw()
     {
-        clear(); // Clear screen.
+        move(0,0); // move cursor to top left so we can redraw over the previous screen.
 
         // Draw top wall
         for (int i = 0; i < width; i++)
@@ -36,26 +45,17 @@ private:
                 }
                 int ballx = ball->GetX();
                 int bally = ball->GetY();
-                if (j == ballx && i == bally)
-                {
-                    addch('O');
-                    continue;
-                }
                 int player1x = player1->GetX();
                 int player1y = player1->GetY();
-                if (j == player1x && i == player1y)
-                {
-                    addch('\xDB');
-                    continue;
-                }
                 int player2x = player2->GetX();
                 int player2y = player2->GetY();
-                if (j == player2x && i == player2y)
-                {
+                if (j == ballx && i == bally)
+                    addch('O');
+                else if (j == player1x && (i == player1y || i == player1y + 1 || i == player1y + 2 || i == player1y + 3 ))
                     addch('\xDB');
-                    continue;
-                }
-                addch(' ');
+                else if (j == player2x && (i == player2y || i == player2y + 1 || i == player2y + 2 || i == player2y + 3 ))
+                    addch('\xDB');
+                else addch(' ');
             }
             addch('\n'); // finish that row
         }
@@ -66,7 +66,6 @@ private:
         addch('\n');
 
         refresh(); // Draw.
-        napms(100);
     }
     void Logic()
     {
